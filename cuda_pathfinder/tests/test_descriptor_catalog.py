@@ -189,6 +189,18 @@ def test_nccl_metadata_matches_supported_linux_install_layouts():
     assert spec.install_root_env_rel_dirs_linux == ("lib", "lib64", "build/lib")
 
 
+@pytest.mark.agent_authored(model="claude-opus-5.5")
+def test_nccl_metadata_matches_supported_windows_install_layouts():
+    spec = _CATALOG_BY_NAME["nccl"]
+    assert spec.windows_dlls == ("nccl.dll",)
+    assert spec.supported_windows_arch == ("x64",)
+    assert spec.site_packages_windows == WindowsSearchDirs.x64_only("nvidia/nccl/bin")
+    assert spec.anchor_rel_dirs_windows == WindowsSearchDirs.x64_only("bin/x64", "bin")
+    assert spec.install_root_env_vars_windows == ("NCCL_HOME",)
+    assert spec.install_root_env_rel_dirs_windows == WindowsSearchDirs.x64_only("bin", "lib")
+    assert spec.program_files_root_globs_windows == WindowsSearchDirs()
+
+
 @pytest.mark.parametrize("spec", DESCRIPTOR_CATALOG, ids=lambda s: s.name)
 def test_ctk_root_canary_anchors_reference_known_ctk_libs(spec: DescriptorSpec):
     for anchor in spec.ctk_root_canary_anchor_libnames:

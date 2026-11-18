@@ -106,7 +106,7 @@ def test_cudnn_and_nccl_header_metadata_matches_wheel_layouts():
     assert nccl.header_basename == "nccl.h"
     assert nccl.site_packages_dirs == ("nvidia/nccl/include",)
     assert nccl.available_on_linux
-    assert not nccl.available_on_windows
+    assert nccl.available_on_windows
     assert nccl.anchor_include_rel_dirs == ("include", "build/include")
     assert nccl.product_root_env_vars == ("NCCL_HOME",)
     assert nccl.system_install_dirs == ("/usr/include", "/usr/local/include")

@@ -272,7 +272,6 @@ HEADER_DESCRIPTOR_CATALOG: tuple[HeaderDescriptorSpec, ...] = (
         packaged_with="other",
         header_basename="nccl.h",
         site_packages_dirs=("nvidia/nccl/include",),
-        available_on_windows=False,
         anchor_include_rel_dirs=("include", "build/include"),
         product_root_env_vars=("NCCL_HOME",),
         system_install_dirs=("/usr/include", "/usr/local/include"),

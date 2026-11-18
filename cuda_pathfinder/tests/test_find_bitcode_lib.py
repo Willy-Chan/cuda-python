@@ -263,6 +263,15 @@ def test_find_bitcode_lib_not_found_error_without_cuda_home(monkeypatch):
         find_bitcode_lib("device")
 
 
+@pytest.mark.agent_authored(model="claude-opus-5.5")
+def test_nccl_device_bitcode_lib_is_available_on_windows():
+    info = _bitcode_lib_info("nccl_device")
+    assert info["available_on_windows"]
+    assert info["filename"] == "libnccl_device.bc"
+    assert info["rel_path"] == "lib"
+    assert info["site_packages_dirs"] == ("nvidia/nccl/lib",)
+
+
 def test_find_bitcode_lib_invalid_name():
     with pytest.raises(ValueError, match="Unknown bitcode library"):
         find_bitcode_lib_module.locate_bitcode_lib("invalid")
